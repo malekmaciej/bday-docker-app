@@ -9,9 +9,13 @@ import os
 app = Flask(__name__)
 # Firestore db connection
 cred = credentials.ApplicationDefault()
-firebase_admin.initialize_app(cred, { 'projectId': 'bday-294317' })
+firebase_admin.initialize_app(cred, { 'projectId': os.environ.get('PROJECTID') })
 db = firestore.client()
 collection = 'hello'
+
+@app.route('/hello/status',methods = ['GET'])
+def status():
+    return jsonify(status='OK',projectid=os.environ.get('PROJECTID')), 200
 
 @app.route('/hello/<name>',methods = ['POST', 'GET'])
 def hello_name(name):
