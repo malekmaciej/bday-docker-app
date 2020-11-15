@@ -5,7 +5,6 @@ steps:
       [
         "build",
         "--build-arg",
-        "NODE_ENV=production",
         "-t",
         "${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$COMMIT_SHA",
         ".",
@@ -25,6 +24,7 @@ steps:
       - --image=${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$COMMIT_SHA
       - --region=${_LOCATION}
       - --platform=managed
+      - --update-labels PROJECTID=$PROJECT_ID
 
 images:
   - "${_GCR_REGION}.gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$COMMIT_SHA"
